@@ -10,11 +10,11 @@ from aws_ops.ec2 import (
     get_instance_status,
 )
 
-# initialize colorama
+# Initialize colorama
 init(autoreset=True)
 
 
-# ----------------- Helper Functions -----------------
+# ----------------- Helpers -----------------
 
 def confirm_action(message: str) -> bool:
     choice = input(f"{message} (y/N): ").strip().lower()
@@ -44,38 +44,32 @@ def run():
         description="AWS Ops CLI – Version 1 (EC2 Management)"
     )
 
-    # Global argument
+    # Global options
     parser.add_argument(
         "--region",
         help="AWS region (example: ap-south-1, us-east-1)"
+    )
+    parser.add_argument(
+        "--profile",
+        help="AWS CLI profile name (example: dev, staging, prod)"
     )
 
     subparsers = parser.add_subparsers(dest="command")
 
     # -------- list --------
-    subparsers.add_parser(
-        "list",
-        help="List EC2 instances"
-    )
+    subparsers.add_parser("list", help="List EC2 instances")
 
     # -------- start --------
-    start_cmd = subparsers.add_parser(
-        "start",
-        help="Start an EC2 instance"
-    )
+    start_cmd = subparsers.add_parser("start", help="Start an EC2 instance")
     start_cmd.add_argument("instance_id")
 
     # -------- stop --------
-    stop_cmd = subparsers.add_parser(
-        "stop",
-        help="Stop an EC2 instance"
-    )
+    stop_cmd = subparsers.add_parser("stop", help="Stop an EC2 instance")
     stop_cmd.add_argument("instance_id")
 
     # -------- status --------
     status_cmd = subparsers.add_parser(
-        "status",
-        help="Show detailed EC2 instance status"
+        "status", help="Show detailed EC2 instance status"
     )
     status_cmd.add_argument("instance_id")
 
@@ -84,7 +78,12 @@ def run():
     # ================= COMMAND HANDLERS =================
 
     if args.command == "list":
-        instances = list_instances(args.region)
+        try:
+          instances = list_instances(args.region, args.profile)
+        except RuntimeError as e:
+          error(str(e))
+          return
+
 
         table = []
         for i in instances:
@@ -113,10 +112,10 @@ def run():
         )
 
     elif args.command == "start":
-        success_flag, msg = start_instance(
-            args.instance_id, args.region
+        ok, msg = start_instance(
+            args.instance_id, args.region, args.profile
         )
-        success(msg) if success_flag else error(msg)
+        success(msg) if ok else error(msg)
 
     elif args.command == "stop":
         if not confirm_action(
@@ -125,17 +124,17 @@ def run():
             error("Operation cancelled")
             return
 
-        success_flag, msg = stop_instance(
-            args.instance_id, args.region
+        ok, msg = stop_instance(
+            args.instance_id, args.region, args.profile
         )
-        success(msg) if success_flag else error(msg)
+        success(msg) if ok else error(msg)
 
     elif args.command == "status":
-        success_flag, data = get_instance_status(
-            args.instance_id, args.region
+        ok, data = get_instance_status(
+            args.instance_id, args.region, args.profile
         )
 
-        if not success_flag:
+        if not ok:
             error(data)
             return
 

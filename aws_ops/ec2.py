@@ -1,15 +1,23 @@
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, ProfileNotFound
 
-
-def ec2_client(region=None):
-    if region:
+def ec2_client(region=None, profile=None):
+    try:
+        if profile:
+            session = boto3.Session(profile_name=profile)
+            return session.client("ec2", region_name=region)
         return boto3.client("ec2", region_name=region)
-    return boto3.client("ec2")
+
+    except ProfileNotFound:
+        raise RuntimeError(
+            f"AWS profile '{profile}' not found. "
+            "Run 'aws configure list-profiles' to see available profiles."
+        )
 
 
-def list_instances(region=None):
-    ec2 = ec2_client(region)
+
+def list_instances(region=None, profile=None):
+    ec2 = ec2_client(region, profile)
     response = ec2.describe_instances()
 
     instances = []
@@ -38,8 +46,8 @@ def list_instances(region=None):
     return instances
 
 
-def start_instance(instance_id, region=None):
-    ec2 = ec2_client(region)
+def start_instance(instance_id, region=None, profile=None):
+    ec2 = ec2_client(region, profile)
     try:
         ec2.start_instances(InstanceIds=[instance_id])
         return True, f"Instance {instance_id} is starting"
@@ -47,8 +55,8 @@ def start_instance(instance_id, region=None):
         return False, e.response["Error"]["Message"]
 
 
-def stop_instance(instance_id, region=None):
-    ec2 = ec2_client(region)
+def stop_instance(instance_id, region=None, profile=None):
+    ec2 = ec2_client(region, profile)
     try:
         ec2.stop_instances(InstanceIds=[instance_id])
         return True, f"Instance {instance_id} is stopping"
@@ -56,8 +64,8 @@ def stop_instance(instance_id, region=None):
         return False, e.response["Error"]["Message"]
 
 
-def get_instance_status(instance_id, region=None):
-    ec2 = ec2_client(region)
+def get_instance_status(instance_id, region=None, profile=None):
+    ec2 = ec2_client(region, profile)
     try:
         response = ec2.describe_instances(InstanceIds=[instance_id])
         instance = response["Reservations"][0]["Instances"][0]
