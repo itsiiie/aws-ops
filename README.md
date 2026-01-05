@@ -100,7 +100,7 @@
 <!-- Feature Heading Animation -->
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=2000&pause=1000&color=FFD93D&center=true&vCenter=true&width=600&lines=Packed+with+powerful+features+%F0%9F%92%A5;Production-ready+from+day+one+%F0%9F%9A%80;Built+by+DevOps%2C+for+DevOps+%F0%9F%92%BB" alt="Features" />
 
-<br><br>
+<br>
 
 <details open>
 <summary><b>📋 Core Capabilities</b></summary>
@@ -195,57 +195,15 @@
 <!-- Tech Stack Animation -->
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=18&duration=2000&pause=1000&color=6C5CE7&center=true&vCenter=true&width=700&lines=Built+with+modern+technologies+%F0%9F%92%BB;Leveraging+the+best+Python+ecosystem+%F0%9F%90%8D;AWS+SDK+at+its+finest+%E2%98%81%EF%B8%8F" alt="Tech Stack" />
 
-<br><br>
+<br>
 
 <!-- Animated Tech Icons -->
 <img src="https://skillicons.dev/icons?i=python,aws,git,github,vscode&theme=dark" />
 <br>
 <img src="https://skillicons.dev/icons?i=linux,bash,docker&theme=dark" />
 
-<br><br>
-
-<!-- Tech Badges -->
-<table>
-<tr>
-<td align="center" width="33%">
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1a1a1a" height="35"/>
-<br><sub><b>Core Language</b></sub>
-</td>
-<td align="center" width="33%">
-<img src="https://img.shields.io/badge/Boto3-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white&labelColor=1a1a1a" height="35"/>
-<br><sub><b>AWS SDK</b></sub>
-</td>
-<td align="center" width="33%">
-<img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white&labelColor=1a1a1a" height="35"/>
-<br><sub><b>Cloud Platform</b></sub>
-</td>
-</tr>
-</table>
-
 <br>
-
 **Core Dependencies:** `boto3` • `argparse` • `tabulate` • `colorama`
-
-<!-- Dependency Graph Visualization -->
-<br>
-
-```mermaid
-graph LR
-    A[AWS Ops CLI] --> B[boto3]
-    A --> C[argparse]
-    A --> D[tabulate]
-    A --> E[colorama]
-    B --> F[AWS EC2 API]
-    style A fill:#FF6B6B,stroke:#C44569,stroke-width:3px,color:#fff
-    style B fill:#4ECDC4,stroke:#1A535C,stroke-width:2px,color:#fff
-    style C fill:#95E1D3,stroke:#1A535C,stroke-width:2px,color:#000
-    style D fill:#F38181,stroke:#1A535C,stroke-width:2px,color:#fff
-    style E fill:#AA96DA,stroke:#1A535C,stroke-width:2px,color:#fff
-    style F fill:#FF9900,stroke:#FF6600,stroke-width:2px,color:#fff
-```
-
-</div>
-
 <br>
 
 <!-- Sparkling Divider -->
@@ -260,9 +218,7 @@ graph LR
 <!-- Installation Animation -->
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=2000&pause=1000&color=00D9FF&center=true&vCenter=true&width=700&lines=Get+started+in+under+2+minutes+%E2%8F%B1%EF%B8%8F;Three+simple+steps+to+cloud+mastery+%F0%9F%9A%80;Installation+is+a+breeze+%F0%9F%8C%AC" alt="Installation" />
 
-<br><br>
-
-<img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="120">
+<br>
 
 </div>
 
@@ -484,7 +440,7 @@ aws-ops --region us-west-2 --profile production status i-0abc123
 <!-- Screenshots Animation -->
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=2000&pause=1000&color=FF6B9D&center=true&vCenter=true&width=700&lines=See+it+in+action+%F0%9F%8E%AC;Beautiful+terminal+output+%F0%9F%8E%A8;Screenshots+that+speak+volumes+%F0%9F%93%B8" alt="Screenshots" />
 
-<br><br>
+<br>
 
 <img src="https://user-images.githubusercontent.com/74038190/212257463-4d82cb45-7b75-4ce7-a358-bc52192a574a.gif" width="120">
 
@@ -605,34 +561,6 @@ _Safety-first: Confirmation prompt for destructive actions_
 </td>
 </tr>
 </table>
-
-<br>
-
-<!-- Design Principles Visualization -->
-<div align="center">
-
-```mermaid
-mindmap
-  root((AWS Ops CLI))
-    Safety
-      Confirmations
-      No Bulk Delete
-      Error Handling
-    Speed
-      Fast Execution
-      Minimal Latency
-      Efficient Code
-    Simplicity
-      Clear Commands
-      Easy Learning
-      Great Docs
-    Production
-      Multi Account
-      Multi Region
-      Scalable
-```
-
-</div>
 
 <br>
 
