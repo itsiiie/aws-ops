@@ -1,5 +1,8 @@
 import argparse
 
+from tabulate import tabulate
+from colorama import Fore, Style, init
+
 from aws_ops.ec2 import (
     list_instances,
     start_instance,
@@ -7,21 +10,44 @@ from aws_ops.ec2 import (
     get_instance_status,
 )
 
+# initialize colorama
+init(autoreset=True)
+
+
+# ----------------- Helper Functions -----------------
 
 def confirm_action(message: str) -> bool:
     choice = input(f"{message} (y/N): ").strip().lower()
     return choice in ["y", "yes"]
 
 
+def color_state(state: str) -> str:
+    if state == "running":
+        return Fore.GREEN + "🟢 running" + Style.RESET_ALL
+    if state == "stopped":
+        return Fore.RED + "🔴 stopped" + Style.RESET_ALL
+    return Fore.YELLOW + f"🟡 {state}" + Style.RESET_ALL
+
+
+def success(msg: str):
+    print(Fore.GREEN + "✔ " + msg + Style.RESET_ALL)
+
+
+def error(msg: str):
+    print(Fore.RED + "❌ " + msg + Style.RESET_ALL)
+
+
+# ----------------- CLI Entry -----------------
+
 def run():
     parser = argparse.ArgumentParser(
         description="AWS Ops CLI – Version 1 (EC2 Management)"
     )
 
-    # Global option
+    # Global argument
     parser.add_argument(
         "--region",
-        help="AWS region (e.g. ap-south-1, us-east-1)"
+        help="AWS region (example: ap-south-1, us-east-1)"
     )
 
     subparsers = parser.add_subparsers(dest="command")
@@ -60,48 +86,62 @@ def run():
     if args.command == "list":
         instances = list_instances(args.region)
 
-        print(
-            f"{'ID':<25} {'NAME':<20} {'STATE':<10} "
-            f"{'TYPE':<10} {'AZ':<12} {'PUBLIC_IP':<15}"
-        )
-        print("-" * 100)
-
+        table = []
         for i in instances:
-            print(
-                f"{i['id']:<25} {i['name']:<20} {i['state']:<10} "
-                f"{i['type']:<10} {i['az']:<12} {i['public_ip']:<15}"
+            table.append([
+                i["id"],
+                i["name"],
+                color_state(i["state"]),
+                i["type"],
+                i["az"],
+                i["public_ip"],
+            ])
+
+        print(
+            tabulate(
+                table,
+                headers=[
+                    "Instance ID",
+                    "Name",
+                    "State",
+                    "Type",
+                    "AZ",
+                    "Public IP",
+                ],
+                tablefmt="grid",
             )
+        )
 
     elif args.command == "start":
-        success, msg = start_instance(
+        success_flag, msg = start_instance(
             args.instance_id, args.region
         )
-        print(("✔" if success else "❌"), msg)
+        success(msg) if success_flag else error(msg)
 
     elif args.command == "stop":
         if not confirm_action(
             f"Are you sure you want to STOP instance {args.instance_id}?"
         ):
-            print("❌ Operation cancelled")
+            error("Operation cancelled")
             return
 
-        success, msg = stop_instance(
+        success_flag, msg = stop_instance(
             args.instance_id, args.region
         )
-        print(("✔" if success else "❌"), msg)
+        success(msg) if success_flag else error(msg)
 
     elif args.command == "status":
-        success, data = get_instance_status(
+        success_flag, data = get_instance_status(
             args.instance_id, args.region
         )
 
-        if not success:
-            print("❌", data)
+        if not success_flag:
+            error(data)
             return
 
         print(f"Instance ID : {data['id']}")
         print(f"Name        : {data['name']}")
-        print(f"State       : {data['state']}")
+        print(f"State       : {color_state(data['state'])}")
         print(f"Type        : {data['type']}")
         print(f"AZ          : {data['az']}")
         print(f"Platform    : {data['platform']}")
