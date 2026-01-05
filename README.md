@@ -96,8 +96,6 @@
 
 ### Prerequisites
 
-<img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="50" align="left">
-
 <br>
 
 - Python 3.8 or higher
@@ -234,7 +232,7 @@ _Comprehensive details about a specific instance_
 
 _Safety-first: Confirmation prompt for destructive actions_
 
-<img src="screenshots/stop.png" alt="Stop Confirmation" width="800" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"/>
+<img src="screenshots/stop-confirm.png" alt="Stop Confirmation" width="800" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"/>
 
 </div>
 
