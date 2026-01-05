@@ -1,0 +1,2 @@
+[console_scripts]
+aws-ops = aws_ops.cli:run

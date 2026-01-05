@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: aws-ops-cli
+Version: 1.0.0
+Summary: A lightweight CLI to manage AWS EC2 from terminal
+Author-email: Shashank <your-email@example.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: boto3

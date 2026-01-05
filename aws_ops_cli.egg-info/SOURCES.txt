@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+aws_ops/__init__.py
+aws_ops/cli.py
+aws_ops/ec2.py
+aws_ops_cli.egg-info/PKG-INFO
+aws_ops_cli.egg-info/SOURCES.txt
+aws_ops_cli.egg-info/dependency_links.txt
+aws_ops_cli.egg-info/entry_points.txt
+aws_ops_cli.egg-info/requires.txt
+aws_ops_cli.egg-info/top_level.txt
